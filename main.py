@@ -148,6 +148,7 @@ class YouTubeBot:
 def main():
     bot = YouTubeBot()
     # Get live chat ID
+    #DAXXYFTW
     livechat_id = bot.get_live_chat_id()
     
     if livechat_id:
