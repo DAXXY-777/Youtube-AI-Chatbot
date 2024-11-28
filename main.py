@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 import pickle
 import time
+from datetime import datetime , timezone
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 
@@ -56,37 +57,50 @@ class YouTubeBot:
             return None
 
     def handle_chat(self, livechat_id):
-        """Handle incoming chat messages"""
+        """Handle incoming chat messages, only processing new messages"""
+        bot_start_time = datetime.now(timezone.utc)
+        formatted_bot_time = bot_start_time.time() 
         next_page_token = None
         try:
             while True:
                 try:
+                    # Retrieve chat messages
                     request = self.youtube.liveChatMessages().list(
                         liveChatId=livechat_id,
                         part="snippet",
                         maxResults=25,
-                        pageToken=next_page_token
-                    ) if next_page_token else self.youtube.liveChatMessages().list(
-                        liveChatId=livechat_id,
-                        part="snippet",
-                        maxResults=25
+                        pageToken=next_page_token if next_page_token else None 
                     )
                     
                     response = request.execute()
+                    print(f"Response: {response}")  # Debug print
                     
+                    # Process only new messages
                     for message in response.get('items', []):
-                        text = message['snippet']['textMessageDetails']['messageText']
-                        
-                        if text.lower().startswith('!ai'):
-                            user_id = message['snippet']['authorChannelId']
-                            if time.time() - self.command_cooldown.get(user_id, 0) > 30:
-                                self.command_cooldown[user_id] = time.time()
-                                self.ollama_bot(text, livechat_id)
-                        elif text.startswith('!'):
-                            self.handle_command(text.lower(), livechat_id)
+                        # Debug print for message data
+                        print(f"Message received: {message}")
+                        mt = message['snippet']['publishedAt']
+                        print(f"Actual time: {mt}")
+                        time_format = '%Y-%m-%dT%H:%M:%S.%f%z'
 
-                    # Update the next_page_token from the response
+                        parsed_time = datetime.strptime(mt, time_format)
+                        formatted_msg_time = parsed_time.time()
+                        
+                        print(f"Message timestamp: {formatted_msg_time}, Bot start time: {formatted_bot_time}")  # Debug print
+
+                        if formatted_bot_time<formatted_msg_time:
+                            text = message['snippet']['textMessageDetails']['messageText']
+                            if text.lower().startswith('!ai'):
+                                user_id = message['snippet']['authorChannelId']
+                                print(f"User ID: {user_id}")  # Debug print
+                                if time.time() - self.command_cooldown.get(user_id, 0) > 30:
+                                    self.command_cooldown[user_id] = time.time()
+                                    self.ollama_bot(text, livechat_id)
+                            elif text.startswith('!'):
+                                self.handle_command(text.lower(), livechat_id)
+
                     next_page_token = response.get('nextPageToken')
+                    print(f"Next page token: {next_page_token}")  # Debug print
                     
                     interval = response.get('pollingIntervalMillis', 10000) / 1000
                     time.sleep(max(interval, 10))
@@ -148,12 +162,15 @@ class YouTubeBot:
 def main():
     bot = YouTubeBot()
     # Get live chat ID
-    #DAXXYFTW
     livechat_id = bot.get_live_chat_id()
     
     if livechat_id:
-        print("Connected to live chat!")
-        bot.handle_chat(livechat_id)
+        try:
+            print("Connected to live chat!")
+            bot.handle_chat(livechat_id)
+        except Exception as e:
+            print(f"Critical error in main chat handling: {e}")
+            # Optional: Add a way to restart or log the error
     else:
         print("No active live stream found.")
 
