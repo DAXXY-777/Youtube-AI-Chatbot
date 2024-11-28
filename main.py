@@ -116,16 +116,13 @@ class YouTubeBot:
             try:
                 _, user_message = command.split(' ', 1)
                 system_message = SystemMessagePromptTemplate.from_template(
-                "Keep all responses under 200 characters."
-                "You are a fun, friendly, and witty Indian Hinglish chatbot designed to engage with viewers in a YouTube livestream chat."
-                "Add roasts for added humour"
-                )
+                    "Respond in Hinglish if asked and reply with fun, friendly, and witty humor. Keep all responses under 70 characters. Add roasts for extra entertainment.")
 
                 human_message = HumanMessagePromptTemplate.from_template(
                 "{username} says: {message}")
                 chat_prompt = ChatPromptTemplate.from_messages([system_message, human_message])
 
-                model =  OllamaLLM(model="llama3.1",temperature=0.7)
+                model =  OllamaLLM(model="llama3.1",temperature=0.83,max_tokens=200)
 
                 result =  model.invoke(chat_prompt.format(username="User", message=user_message))
                 print(command)
