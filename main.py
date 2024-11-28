@@ -7,7 +7,7 @@ from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplat
 class YouTubeBot:
     def __init__(self):
         # Load the credentials from the pickle file
-        with open('youtube_token_sense.pickle', 'rb') as token:
+        with open('youtube_token.pickle', 'rb') as token:
             credentials = pickle.load(token)
             
         # Create YouTube API service
