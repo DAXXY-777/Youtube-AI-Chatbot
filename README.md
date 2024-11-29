@@ -49,7 +49,8 @@ pip install google-api-python-client pickle5 langchain
    - Ensure the service is running before launching the bot.
 
 3. **Install AI Model**:
-   - Ensure the model `llama3.1` is available on your Ollama instance.
+   - Ensure the model is available on your Ollama instance.
+   - Check using ollama list in cmd 
 
 ### 4. Environment Requirements
 - Python 3.8+
