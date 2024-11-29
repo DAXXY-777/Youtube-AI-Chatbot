@@ -50,7 +50,6 @@ pip install google-api-python-client pickle5 langchain
 
 3. **Install AI Model**:
    - Ensure the model is available on your Ollama instance.
-   - Check using ollama list in cmd 
 
 ### 4. Environment Requirements
 - Python 3.8+
@@ -105,7 +104,8 @@ python youtube_chat_bot.py
    - Check your API usage in the Google Cloud Console and increase quota if necessary.
 
 4. **AI Model Errors**:
-   - Verify the model `llama3.1` is installed and accessible by the Ollama server.
+   - Verify the model you use is installed and accessible by the Ollama server.
+   - Check using 'ollama list' in cmd 
 
 ---
 
