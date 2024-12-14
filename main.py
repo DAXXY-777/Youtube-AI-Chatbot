@@ -6,11 +6,7 @@ from typing import Dict, Optional
 
 from googleapiclient.discovery import build
 from langchain_ollama import OllamaLLM
-from langchain_core.prompts import (
-    ChatPromptTemplate, 
-    HumanMessagePromptTemplate, 
-    SystemMessagePromptTemplate
-)
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 
 class YouTubeBot:
     def __init__(
