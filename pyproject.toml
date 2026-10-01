@@ -1,13 +1,29 @@
 [project]
-name = "youtube-final"
+name = "yt-livestream-chatbot"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "fastapi>=0.141.1",
-    "gradio>=6.26.0",
-    "openai>=3.5.0",
-    "pytchat-ng>=0.5.8",
-    "requests>=2.34.2",
+    "fastapi>=0.116.1",
+    "gradio>=6.0,<7",
+    "httpx>=0.28.1",
+    "huggingface-hub>=1.31.0",
+    "keyring>=25.7.0",
+    "llama-cpp-python>=0.3.35",
+    "pytchat-ng>=0.5.9",
+    "pywebview>=6.2.1",
+    "sqlalchemy>=2.0.54",
+    "uvicorn>=0.35.0",
 ]
+
+[dependency-groups]
+build = [
+    "pyinstaller>=6.22.3",
+]
+
+[[tool.uv.index]]
+name = "llama-cpp-vulkan"
+url = "https://abetlen.github.io/llama-cpp-python/whl/vulkan"
+explicit = true
+
+[tool.uv.sources]
+llama-cpp-python = { index = "llama-cpp-vulkan" }
