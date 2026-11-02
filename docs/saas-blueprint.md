@@ -3,7 +3,7 @@
 
 **Version:** 1.1  
 **Prepared:** 2026-11-02  
-**Status:** IN PROGRESS - environment and original test baseline verified; Cloudflare implementation not started  
+**Status:** Phase 1 in progress; local WebSocket tests passed 
 **Repository:** https://github.com/DAXXY-777/Youtube-AI-Chatbot  
 **Source branch reviewed:** `master` (public GitHub pages reviewed 2026-11-02; exact commit SHA not captured)  
 **Recommended home for this document:** `docs/saas-blueprint.md` in the project repository  
@@ -305,10 +305,10 @@ If each Nightbot question results in an estimated **2-4 Worker invocations**, 10
 **Purpose:** Preserve the existing desktop app, understand dependencies, and have a reproducible known-good starting point.
 
 - [x] P0-01 Record local OS, `git`, Python, `uv`, Node and installed tools. (2026-11-02)
-- [ ] P0-02 Inspect branch/working tree; save changes safely; create `feat/cloudflare-saas-relay` only after checking local state.
-- [ ] P0-03 Install dependencies using existing uv project instructions; run existing unit tests; capture result.
-- [ ] P0-04 Smoke-test existing UI + local API without a tunnel; confirm ports and normal response path.
-- [ ] P0-05 Commit blueprint and handoff docs; note baseline commit SHA.
+- [x] P0-02 Inspect branch/working tree; save changes safely; create `feat/cloudflare-saas-relay` only after checking local state.
+- [x] P0-03 Install dependencies using existing uv project instructions; run existing unit tests; capture result.
+- [x] P0-04 Smoke-test existing UI + local API without a tunnel; confirm ports and normal response path.
+- [x] P0-05 Commit blueprint and handoff docs; note baseline commit SHA.
 
 **Exit gate:** clean/safely backed-up branch, baseline test results known (pass or failures documented), existing app still launches. **Do not rewrite the desktop app in this phase.**
 
@@ -316,7 +316,7 @@ If each Nightbot question results in an estimated **2-4 Worker invocations**, 10
 
 **Purpose:** Replace the need for user-managed tunnels with one provider-operated Cloudflare endpoint.
 
-- [ ] P1-01 Create isolated `cloudflare/` Worker project with predictable local dev configuration, no production secrets in git.
+- [x] P1-01 Create isolated `cloudflare/` Worker project with predictable local dev configuration, no production secrets in git.
 - [ ] P1-02 Deploy/test an inexpensive Worker health endpoint.
 - [ ] P1-03 Add SQLite-backed Durable Object using `ctx.acceptWebSocket()` and verified hibernation semantics.
 - [ ] P1-04 Evolve the uploaded `app.py` proof of concept into a versioned, authenticated outbound client (initially constant `REPLY` for the test).
@@ -406,7 +406,7 @@ If each Nightbot question results in an estimated **2-4 Worker invocations**, 10
 
 ## 9. Foundation Sprint - 12 verifiable tasks (TODAY = first six if tests allow)
 
-> **Current score: 2/12 verified (2026-11-02).** F01 environment audit and F02 baseline tests are verified from user terminal output/report. The first six tasks form today's stretch target. Follow the current handoff for the next step.
+> **Current score: 5/12 verified (2026-11-02).** F01 environment audit and F02 baseline tests are verified from user terminal output/report. The first six tasks form today's stretch target. Follow the current handoff for the next step.
 
 | ID | Task | Proof needed | Status |
 |---|---|---|---|

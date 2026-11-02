@@ -9,7 +9,8 @@
 **Foundation Sprint:** 5/12 verified
 
 **Current work:** F06 local WebSocket tests passed.
-Hosted Durable Object hibernation and Git verification pending.
+Git/code verification completed.
+Regression testing and hosted hibernation verification pending.
 
 **Next step:** Verify Git state and finalize F06.
 
@@ -30,7 +31,7 @@ Hosted Durable Object hibernation and Git verification pending.
 | Repo directory | `C:\Users\devmu\Desktop\Projects\Current-projects\youtube-final` (user terminal) |
 | Initial Git branch / remote | `master...Dax/master`, clean worktree (verified before changes) |
 | Current development branch | `feat/saas-foundation` (user reports created; **verify with `git status --short --branch`**) |
-| Last observed Git SHA | `c7cbc47` (on initial master; verify new branch HEAD) |
+| Last observed Git SHA | `8ffffa3` (on initial master; verify new branch HEAD) |
 | Python | `3.14.6` via `uv`, executable inside project `.venv` |
 | uv | `0.11.32` |
 | Node / npm | `v24.16.0` / `11.13.0` |
@@ -90,12 +91,13 @@ The websockets dependency is version 17.4.
 
 ### Remaining F06 work
 
-1. Inspect local Git status and latest commit.
-2. Confirm relay-probe-v1 / relay-ack-v1 is committed.
-3. Verify RELAY_ROOM binding and SQLite configuration.
-4. Run regression tests.
-5. Verify hosted hibernation behavior safely.
-6. Mark F06 complete only after passing those checks.
+- [x] Inspect local Git status and latest commit.
+- [x] Confirm relay-probe-v1 / relay-ack-v1 is committed.
+- [x] Verify RELAY_ROOM binding and SQLite configuration.
+- [x] Verify local WebSocket message round-trip.
+- [ ] Run final regression tests after the latest changes.
+- [ ] Verify hosted Durable Object hibernation safely.
+- [ ] Mark F06 complete after all acceptance checks pass.
 
 ### Next task after F06
 
