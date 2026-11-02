@@ -2,11 +2,12 @@
 
 **Blueprint:** `docs/saas-blueprint.md` v1.1  
 **Repository:** https://github.com/DAXXY-777/Youtube-AI-Chatbot  
-**Last updated:** 2026-11-02  
-**Current work:** Phase 0 P0-05 - save and commit planning documents  
-**Foundation Sprint:** **2 / 12 verified** (target 6 / 12 today, if feasible)  
-**Next Foundation task:** **F03 - smoke-test existing app**  
-**Overall status:** Existing tests reported passing; SaaS implementation not yet started.
+**Last updated:** 2026-11-02
+**Current work:** F04 — Relay protocol finalization
+**Foundation Sprint:** 4 / 12 verified after F04 commit
+**Next Foundation task:** F05 — Cloudflare Worker health endpoint
+**Overall status:** Existing application smoke-tested. Relay v1 contract and fixture tests completed. Cloudflare implementation not yet started.
+
 
 ## Architecture (summary only)
 
@@ -42,8 +43,8 @@
 
 - [x] F01 Local environment + initial repo/branch audit
 - [x] F02 Existing unittest baseline (user reported all OK after repair)
-- [ ] F03 Existing app smoke test (UI and localhost route)
-- [ ] F04 Relay protocol and fixture contract
+- [x] F03 Existing app smoke test (UI and localhost route)
+- [x] F04 Relay protocol and fixture contract
 - [ ] F05 Cloudflare Worker health endpoint
 - [ ] F06 SQLite-backed hibernating DO WebSocket endpoint
 - [ ] F07 Hosted PC round-trip, hard-coded reply
@@ -53,18 +54,13 @@
 - [ ] F11 Authentication/abuse checks
 - [ ] F12 Nightbot delivery spike, docs and regressions
 
-## Current step: P0-05 - put planning documents in the repo
+## Current step: F04 completion checkpoint
 
-**Why:** Temporary chat links will not be reliable future project state. Git-tracked Markdown files provide an editable and reproducible handoff.
-
-**Do now:** On branch `feat/saas-foundation`, place these two downloaded files in your repo without overwriting unrelated files:
-
-- `docs/saas-blueprint.md`
-- `docs/saas-session-handoff.md`
-
-**Verify before committing:** From the repo root, run `git status --short --branch` and `git diff --no-index -- /dev/null docs/saas-session-handoff.md` only if applicable (Windows PowerShell can instead run `Get-Content docs/saas-session-handoff.md -TotalCount 12`). Avoid destructive Git commands. Confirm both paths are new/untracked and on the expected branch. Then ask for the separate commit step. Update this handoff after any commit with the new SHA.
-
-**Next Foundation task after docs are saved:** F03 — smoke-test the existing local app without a tunnel. Its exact command should be chosen after checking local `README.md` and main entrypoints.
+- Existing desktop UI and local Nightbot API verified.
+- Relay protocol documented in docs/relay-protocol-v1.md.
+- Shared JSON fixtures and Python fixture tests passed.
+- Runtime message validation not yet implemented.
+- Next: F05 Cloudflare Worker with local /health endpoint.
 
 ## Task ID clarification
 

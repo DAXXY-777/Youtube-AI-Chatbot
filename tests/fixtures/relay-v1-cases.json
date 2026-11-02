@@ -1,0 +1,124 @@
+{
+  "fixture_format": "relay-v1-cases",
+  "description": "Shared test templates for the authenticated Worker/Durable Object <-> desktop WebSocket protocol; never sent directly over the network.",
+  "template_rules": {
+    "$NOW_PLUS_15000": "Replace this placeholder with integer Unix UTC milliseconds equal to current time + 15000. Required so ask deadlines fall within the 30-second window.",
+    "set": "Replace listed top-level fields in a copy of the base message.",
+    "remove": "Delete listed top-level fields from a copy of the base message.",
+    "repeat": "Replace the target top-level field with the character repeated count times.",
+    "raw_frame": "Use this literal string as the incoming WebSocket text frame instead of generating JSON."
+  },
+  "test_context": {
+    "authenticated_channel_id": "channel-demo-1",
+    "pending_job_ids": [
+      "64a1a3cb-b71d-4b66-a846-e24df946a067"
+    ]
+  },
+  "valid_templates": {
+    "ask": {
+      "v": 1,
+      "type": "ask",
+      "id": "64a1a3cb-b71d-4b66-a846-e24df946a067",
+      "channel_id": "channel-demo-1",
+      "viewer": {
+        "id": "youtube:viewer-42",
+        "name": "ExampleViewer"
+      },
+      "prompt": "What game should we play next?",
+      "deadline_ms": "$NOW_PLUS_15000"
+    },
+    "reply": {
+      "v": 1,
+      "type": "reply",
+      "id": "64a1a3cb-b71d-4b66-a846-e24df946a067",
+      "text": "Try a short co-op game so chat can join in!"
+    },
+    "job_error": {
+      "v": 1,
+      "type": "job_error",
+      "id": "64a1a3cb-b71d-4b66-a846-e24df946a067",
+      "code": "busy"
+    }
+  },
+  "invalid_cases": [
+    {
+      "name": "unsupported_version",
+      "base": "ask",
+      "set": {
+        "v": 2
+      },
+      "reject_reason": "unsupported_version"
+    },
+    {
+      "name": "unknown_type",
+      "base": "ask",
+      "set": {
+        "type": "execute"
+      },
+      "reject_reason": "unknown_type"
+    },
+    {
+      "name": "missing_id",
+      "base": "ask",
+      "remove": [
+        "id"
+      ],
+      "reject_reason": "missing_required_field"
+    },
+    {
+      "name": "wrong_channel",
+      "base": "ask",
+      "set": {
+        "channel_id": "channel-other"
+      },
+      "reject_reason": "wrong_authenticated_channel"
+    },
+    {
+      "name": "oversized_prompt",
+      "base": "ask",
+      "repeat": {
+        "field": "prompt",
+        "character": "x",
+        "count": 1501
+      },
+      "reject_reason": "prompt_too_long"
+    },
+    {
+      "name": "expired_deadline",
+      "base": "ask",
+      "set": {
+        "deadline_ms": 0
+      },
+      "reject_reason": "expired_deadline"
+    },
+    {
+      "name": "unknown_job_id",
+      "base": "reply",
+      "set": {
+        "id": "ec54939f-4a55-44d3-8a65-9dd534ef77ca"
+      },
+      "reject_reason": "no_matching_pending_job"
+    },
+    {
+      "name": "extra_top_level_field",
+      "base": "reply",
+      "set": {
+        "debug": true
+      },
+      "reject_reason": "unexpected_field"
+    },
+    {
+      "name": "empty_reply",
+      "base": "reply",
+      "set": {
+        "text": ""
+      },
+      "reject_reason": "empty_reply"
+    },
+    {
+      "name": "malformed_json",
+      "raw_frame": "{not valid json",
+      "reject_reason": "invalid_json"
+    }
+  ]
+}
