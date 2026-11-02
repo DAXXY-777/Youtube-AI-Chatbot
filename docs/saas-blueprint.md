@@ -597,19 +597,32 @@ Personas, configurable commands, local automations, OBS/actions, plugins, subscr
 | Active blocker | User environment/tool versions and current local repo status are unknown |
 | Secrets | Do not paste `.env` content, Worker secrets, OAuth tokens or API keys |
 
-### Session update - 2026-11-02 (current)
+### End-of-day update — 2026-11-02
 
-| Field | Value |
-|---|---|
-| Working copy | Windows PowerShell at `C:\Users\devmu\Desktop\Projects\Current-projects\youtube-final` |
-| Initial Git state | Clean `master...Dax/master`, commit `c7cbc47` |
-| Development branch | `feat/saas-foundation` created per user; new branch output has not yet been shown |
-| Python / tooling | uv-managed Python `3.14.6` in `.venv`; uv `0.11.32`; Node `v24.16.0`; npm `11.13.0` |
-| Tests | First run: 11 individual tests passed, 3 test modules import-failed. Duplicate FastAPI/Pydantic/Starlette distributions were detected. User subsequently reported the entire suite `OK` after environment repair; exact final test count not provided. |
-| Foundation Sprint | **2 / 12 verified**: F01 and F02; F03 app smoke test has not been performed |
-| Documents | Saving blueprint + handoff into the repository is **in progress** (Phase 0 P0-05); commit not yet verified |
-| Next action | Place updated documents at `docs/saas-blueprint.md` and `docs/saas-session-handoff.md`, inspect `git status`, then commit after verification |
-| SaaS backend | No Worker or Durable Object implementation verified |
+**Branch:** feat/saas-foundation
+**Foundation Sprint:** 5/12 verified
+**Current phase:** Phase 1 — Cloudflare relay foundation
+
+**Completed:**
+- F01–F05 fully verified.
+- F06 local WebSocket authentication passed.
+- Invalid token rejected with HTTP 401.
+- Authenticated WebSocket connected with HTTP 101.
+- Invalid application message rejected with code 1008.
+- Bidirectional relay-probe-v1 → relay-ack-v1 passed.
+
+**F06 remaining:**
+- Verify latest changes are committed and pushed.
+- Verify Durable Object binding in Wrangler configuration.
+- Validate hosted Durable Object hibernation behavior.
+
+**Next task:** F06 final verification, followed by F07.
+
+**Important:** No hosted Nightbot integration, multi-tenant
+routing, or real AI inference through the relay is verified.
+
+**Security:** RELAY_DEV_TOKEN and the local-test room are
+development-only. Do not expose them as production services.
 
 **Task-label clarification:** Earlier conversation called environment inspection F01, Python verification F02, unittest repair F03, branch creation F04, and docs F05. Those were *conversation step labels*, **not** the blueprint's Foundation F01-F12 identifiers. Use the blueprint's F01-F12 table as authoritative. The current documentation step is **Phase 0 P0-05**, not Foundation F05 (which means Cloudflare Worker health endpoint).
 
