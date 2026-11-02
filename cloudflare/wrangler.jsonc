@@ -10,7 +10,25 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+
+	"upload_source_maps": true,
+
+	"durable_objects": {
+	"bindings": [
+		{
+		"name": "RELAY_ROOM",
+		"class_name": "RelayRoom"
+		}
+	]
+	},
+
+	"exports": {
+	"RelayRoom": {
+		"type": "durable-object",
+		"storage": "sqlite"
+	}
+	}
+
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

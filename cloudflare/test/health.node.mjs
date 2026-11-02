@@ -1,7 +1,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import worker from "../src/index.ts";
+import worker from "../src/http-handler.ts";
 
 test("GET /health returns healthy status", async () => {
   const request = new Request("http://localhost/health");

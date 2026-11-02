@@ -412,9 +412,9 @@ If each Nightbot question results in an estimated **2-4 Worker invocations**, 10
 |---|---|---|---|
 | F01 | Local environment + repo/branch audit | OS, versions, `git status`, current SHA, safe worktree state | [x] |
 | F02 | Existing unittest baseline | Test command output and failing tests recorded | [x] |
-| F03 | Existing app smoke test | `main.py` launches; private UI and local route correctly scoped | [ ] |
-| F04 | Freeze `v1` relay protocol and write fixture examples | Protocol docs/fixtures reviewed, invalid messages defined | [ ] |
-| F05 | Create Cloudflare Worker skeleton + `/health` | Local request returns JSON and test passes | [ ] |
+| F03 | Existing app smoke test | `main.py` launches; private UI and local route correctly scoped | [x] |
+| F04 | Freeze `v1` relay protocol and write fixture examples | Protocol docs/fixtures reviewed, invalid messages defined | [x] |
+| F05 | Create Cloudflare Worker skeleton + `/health` | Local request returns JSON and test passes | [x] |
 | F06 | Create hibernatable DO WebSocket endpoint | Local connect/echo or ask/reply test + valid SQLite migration | [ ] |
 | F07 | Connect standalone Python `app.py` to the Worker/DO | Cloud-hosted public request round-trips hard-coded reply | [ ] |
 | F08 | Handle reconnect/cancellation/offline | Disconnect and recovery integration tests | [ ] |

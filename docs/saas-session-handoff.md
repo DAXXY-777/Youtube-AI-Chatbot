@@ -3,11 +3,10 @@
 **Blueprint:** `docs/saas-blueprint.md` v1.1  
 **Repository:** https://github.com/DAXXY-777/Youtube-AI-Chatbot  
 **Last updated:** 2026-11-02
-**Current work:** F04 — Relay protocol finalization
-**Foundation Sprint:** 4 / 12 verified after F04 commit
-**Next Foundation task:** F05 — Cloudflare Worker health endpoint
-**Overall status:** Existing application smoke-tested. Relay v1 contract and fixture tests completed. Cloudflare implementation not yet started.
-
+**Current work:** F06 — Local WebSocket connectivity verified; Git checkpoint pending
+**Foundation Sprint:** 5 / 12 fully verified; F06 round-trip test pending
+**Next Foundation task:** F06 — WebSocket message round-trip
+**Overall status:** Worker health tests passed. Durable Object configured. Python probe verified HTTP 401, WebSocket 101, and intentional close 1008. No hosted relay or AI inference yet.
 
 ## Architecture (summary only)
 
@@ -45,7 +44,7 @@
 - [x] F02 Existing unittest baseline (user reported all OK after repair)
 - [x] F03 Existing app smoke test (UI and localhost route)
 - [x] F04 Relay protocol and fixture contract
-- [ ] F05 Cloudflare Worker health endpoint
+- [x] F05 Cloudflare Worker health endpoint
 - [ ] F06 SQLite-backed hibernating DO WebSocket endpoint
 - [ ] F07 Hosted PC round-trip, hard-coded reply
 - [ ] F08 Reconnect and offline tests
@@ -54,13 +53,16 @@
 - [ ] F11 Authentication/abuse checks
 - [ ] F12 Nightbot delivery spike, docs and regressions
 
-## Current step: F04 completion checkpoint
+## Current step: F06 WebSocket checkpoint
 
-- Existing desktop UI and local Nightbot API verified.
-- Relay protocol documented in docs/relay-protocol-v1.md.
-- Shared JSON fixtures and Python fixture tests passed.
-- Runtime message validation not yet implemented.
-- Next: F05 Cloudflare Worker with local /health endpoint.
+- Cloudflare Worker health endpoint tested.
+- SQLite-backed RelayRoom configured.
+- Local development authentication implemented.
+- Python WebSocket probe passed: 401, 101, 1008.
+- websockets==17.4 added through uv.
+- Pending: WebSocket echo or request/reply test.
+- Pending: hosted hibernation verification.
+- Next: commit current implementation, then finish F06.
 
 ## Task ID clarification
 
