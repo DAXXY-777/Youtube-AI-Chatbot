@@ -28,7 +28,19 @@ export class RelayRoom extends DurableObject {
 
   // Until we implement authentication and the relay
   // protocol, reject incoming application messages.
-  webSocketMessage(ws: WebSocket): void {
+  
+    webSocketMessage(
+    ws: WebSocket,
+    message: string | ArrayBuffer
+    ): void {
+    // Temporary local development probe.
+    if (message === "relay-probe-v1") {
+        ws.send("relay-ack-v1");
+        return;
+    }
+
+    // All other messages remain rejected.
     ws.close(1008, "Relay protocol not enabled");
-  }
+    }
+
 }

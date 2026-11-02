@@ -73,11 +73,33 @@ async def test_valid_connection(token: str) -> None:
             raise AssertionError("Expected the relay to close the connection")
 
 
+async def test_message_round_trip(token: str) -> None:
+    async with connect(
+        WS_URL,
+        additional_headers={
+            "Authorization": f"Bearer {token}"
+        },
+        open_timeout=10,
+    ) as websocket:
+        await websocket.send("relay-probe-v1")
+
+        response = await asyncio.wait_for(
+            websocket.recv(),
+            timeout=10,
+        )
+
+        assert response == "relay-ack-v1", (
+            f"Unexpected response: {response!r}"
+        )
+
+        print("PASS: Bidirectional WebSocket messaging")
+
 async def main() -> None:
     token = load_token()
 
     await test_invalid_token()
     await test_valid_connection(token)
+    await test_message_round_trip(token)
 
     print("\nAll WebSocket checks passed!")
 
